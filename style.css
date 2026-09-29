@@ -1,0 +1,611 @@
+:root {
+  /* Cores */
+  --bg: #0b1020;
+  --bg-glow: #1a1f4a;
+  --surface: #131a33;
+  --surface-2: #1b2445;
+  --border: #2c3868;
+  --text: #e8ecff;
+  --text-muted: #a3acd6;      /* contraste ≥ 4.5:1 sobre --surface */
+  --accent: #22d3ee;          /* ciano neon */
+  --accent-2: #e879f9;        /* magenta neon */
+  --danger: #fb7185;
+  --success: #4ade80;
+  --on-accent: #06121f;       /* texto escuro sobre botão claro */
+
+  /* Cores dos níveis (1 a 5) */
+  --lvl-1: #94a3b8;
+  --lvl-2: #4ade80;
+  --lvl-3: #22d3ee;
+  --lvl-4: #a78bfa;
+  --lvl-5: #fbbf24;
+
+  /* Tipografia */
+  --font-display: "Chakra Petch", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Espaçamentos e formas */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --tap: 44px;                /* área mínima de toque recomendada */
+  --glow: 0 0 0 1px var(--border), 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 0%, var(--bg-glow), transparent 45%),
+    radial-gradient(circle at 90% 10%, rgb(232 121 249 / 0.12), transparent 40%),
+    var(--bg);
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-4);
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Foco bem visível para quem navega pelo teclado */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Link "pular para o conteúdo": só aparece quando recebe foco */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-sm);
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+.container {
+  width: min(1100px, 100% - 2rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.site-header {
+  text-align: center;
+  padding: var(--space-8) var(--space-4) var(--space-6);
+}
+
+.site-header h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.subtitle {
+  margin: var(--space-2) auto 0;
+  max-width: 50ch;
+  color: var(--text-muted);
+}
+
+.lobby {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--glow);
+  padding: var(--space-6);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.panel-head h2 {
+  margin: 0;
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding: var(--space-6) var(--space-4);
+}
+
+.site-footer strong {
+  color: var(--text);
+}
+
+/* Padding aumenta a área de clique sem mudar o visual do texto */
+.site-footer a {
+  display: inline-block;
+  padding: var(--space-2) var(--space-1);
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer a:hover {
+  color: var(--accent-2);
+}
+
+.player-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+label,
+legend {
+  font-weight: 600;
+}
+
+input[type="text"],
+select {
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-muted);
+}
+
+/* aria-invalid é ligado pelo JS quando há erro */
+input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+/* Radios viram "pílulas": o input fica invisível, mas continua
+   acessível e navegável pelas setas do teclado. */
+.level-options {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.level-options input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.level-options label {
+  flex: 1;
+  min-height: var(--tap);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.level-options label:hover {
+  border-color: var(--accent);
+}
+
+.level-options input:checked + label {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+/* O foco está no input escondido, então mostramos no label ao lado */
+.level-options input:focus-visible + label {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Parágrafo vazio não ocupa espaço */
+.error:empty,
+.status:empty {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.btn {
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.15s, background-color 0.15s;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  color: var(--on-accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-small {
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.875rem;
+}
+
+.btn-large {
+  font-size: 1.1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.count {
+  display: inline-block;
+  min-width: 2ch;
+  padding: 0 var(--space-2);
+  margin-left: var(--space-1);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.player-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.player-item {
+  display: flex;
+  flex-wrap: wrap; /* sem espaço, os botões descem para a linha de baixo */
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--lvl-color, var(--border));
+}
+
+.player-item.is-editing {
+  outline: 2px dashed var(--accent-2);
+}
+
+.player-name {
+  flex: 1 1 7rem; /* o nome "reserva" pelo menos 7rem antes de dividir a linha */
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.player-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.player-item .btn {
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.8rem;
+}
+
+/* Badge do nível: a cor vem de --lvl-color, definida por nível abaixo */
+.level-badge {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.25rem;
+  height: 1.75rem;
+  padding: 0 var(--space-2);
+  border-radius: 999px;
+  border: 1px solid var(--lvl-color);
+  color: var(--lvl-color);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+[data-level="1"] { --lvl-color: var(--lvl-1); }
+[data-level="2"] { --lvl-color: var(--lvl-2); }
+[data-level="3"] { --lvl-color: var(--lvl-3); }
+[data-level="4"] { --lvl-color: var(--lvl-4); }
+[data-level="5"] { --lvl-color: var(--lvl-5); }
+
+.empty {
+  margin: 0;
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.draw-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.result[hidden] {
+  display: none;
+}
+
+.result-head h2 {
+  margin-bottom: var(--space-1);
+}
+
+.balance {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.balance strong {
+  color: var(--success);
+}
+
+/* auto-fit + minmax: o grid decide sozinho quantas colunas cabem */
+.teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.team-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--glow);
+  border-top: 4px solid var(--team-color, var(--accent));
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: pop-in 0.3s ease-out both;
+}
+
+.team-card:nth-child(1) { --team-color: var(--accent); }
+.team-card:nth-child(2) { --team-color: var(--accent-2); }
+.team-card:nth-child(3) { --team-color: var(--lvl-5); }
+.team-card:nth-child(4) { --team-color: var(--lvl-2); }
+
+.team-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--team-color);
+}
+
+.team-stats {
+  display: flex;
+  flex-wrap: wrap; /* em cards estreitos, quebra a linha em vez de vazar */
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.team-stats div {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.team-stats dt::after {
+  content: ":";
+}
+
+.team-stats dd {
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.team-players {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.team-players li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status {
+  margin: 0;
+  color: var(--success);
+  font-weight: 600;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.dialog {
+  width: min(420px, 100% - 2rem);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.dialog::backdrop {
+  background: rgb(5 8 20 / 0.75);
+}
+
+.dialog p {
+  color: var(--text-muted);
+}
+
+/* ==========================================================
+   9. RESPONSIVIDADE
+   ========================================================== */
+@media (min-width: 600px) {
+  .draw-controls {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .draw-controls .field {
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Desktop: cadastro e lista lado a lado */
+  .lobby {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+  }
+}
+
+/* Respeita quem pediu ao sistema para reduzir animações */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Esconde visualmente, mas mantém acessível (usado no plano B de copiar) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
