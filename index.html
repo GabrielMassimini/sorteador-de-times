@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cadastre os jogadores, informe o nível de cada um e sorteie times equilibrados.">
+  <title>Sorteador de Times</title>
+
+  <!-- Fonte dos títulos: dá o ar de "lobby de jogo" sem usar nada de marca -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <!-- defer: o script só roda depois que o HTML inteiro foi lido -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <p class="eyebrow">Lobby da partida</p>
+    <h1>Sorteador de Times</h1>
+    <p class="subtitle">Cadastre a galera, informe o nível e deixe o sistema montar times equilibrados.</p>
+  </header>
+
+  <main id="conteudo" class="container">
+    <div class="lobby">
+      <!-- Cadastro / edição -->
+      <section class="panel" aria-labelledby="form-title">
+        <h2 id="form-title">Adicionar jogador</h2>
+
+        <form id="player-form" class="player-form" novalidate>
+          <div class="field">
+            <label for="player-name">Nome</label>
+            <input
+              id="player-name"
+              name="name"
+              type="text"
+              maxlength="30"
+              autocomplete="off"
+              placeholder="Ex.: Ana"
+              aria-describedby="form-error"
+            >
+          </div>
+
+          <fieldset class="field level-picker">
+            <legend>Nível de habilidade</legend>
+            <div class="level-options">
+              <input type="radio" id="level-1" name="level" value="1">
+              <label for="level-1">1</label>
+              <input type="radio" id="level-2" name="level" value="2">
+              <label for="level-2">2</label>
+              <input type="radio" id="level-3" name="level" value="3" checked>
+              <label for="level-3">3</label>
+              <input type="radio" id="level-4" name="level" value="4">
+              <label for="level-4">4</label>
+              <input type="radio" id="level-5" name="level" value="5">
+              <label for="level-5">5</label>
+            </div>
+            <p class="hint">1 = iniciante · 5 = craque</p>
+          </fieldset>
+
+          <!-- role="alert" faz o leitor de tela anunciar o erro assim que ele aparece -->
+          <p id="form-error" class="error" role="alert"></p>
+
+          <div class="actions">
+            <button type="submit" id="submit-btn" class="btn btn-primary">Adicionar</button>
+            <button type="button" id="cancel-edit-btn" class="btn btn-ghost" hidden>Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Lista de jogadores -->
+      <section class="panel" aria-labelledby="list-title">
+        <div class="panel-head">
+          <h2 id="list-title">Jogadores <span id="player-count" class="count">0</span></h2>
+          <button type="button" id="clear-btn" class="btn btn-danger btn-small">Limpar tudo</button>
+        </div>
+
+        <ul id="player-list" class="player-list"></ul>
+        <p id="empty-state" class="empty">Nenhum jogador no lobby ainda. Adicione o primeiro!</p>
+      </section>
+    </div>
+
+    <!-- Configuração do sorteio -->
+    <section class="panel draw-panel" aria-labelledby="draw-title">
+      <h2 id="draw-title">Sorteio</h2>
+      <div class="draw-controls">
+        <div class="field">
+          <label for="team-count">Quantidade de times</label>
+          <select id="team-count">
+            <option value="2">2 times</option>
+            <option value="3">3 times</option>
+            <option value="4">4 times</option>
+          </select>
+        </div>
+        <button type="button" id="draw-btn" class="btn btn-primary btn-large">Sortear</button>
+      </div>
+      <p id="draw-error" class="error" role="alert"></p>
+    </section>
+
+    <!-- Resultado: fica escondido até o primeiro sorteio -->
+    <section id="result" class="result" aria-labelledby="result-title" hidden>
+      <div class="result-head">
+        <h2 id="result-title" tabindex="-1">Times sorteados</h2>
+        <p id="balance-summary" class="balance"></p>
+      </div>
+
+      <div id="teams" class="teams"></div>
+
+      <div class="actions">
+        <button type="button" id="redraw-btn" class="btn btn-primary">Sortear de novo</button>
+        <button type="button" id="copy-btn" class="btn btn-ghost">Copiar resultado</button>
+      </div>
+      <!-- aria-live="polite": anuncia "Copiado!" sem interromper o usuário -->
+      <p id="copy-status" class="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Desenvolvido por <strong>Gabriel Massimini</strong>
+      <span aria-hidden="true">·</span>
+      <a href="https://github.com/GabrielMassimini" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.linkedin.com/in/gabriel-massimini-junqueira/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </p>
+  </footer>
+
+  <dialog id="confirm-dialog" class="dialog" aria-labelledby="dialog-title">
+    <form method="dialog">
+      <h2 id="dialog-title">Limpar a lista?</h2>
+      <p>Todos os jogadores serão removidos. Essa ação não pode ser desfeita.</p>
+      <div class="actions">
+        <button value="cancel" class="btn btn-ghost" autofocus>Cancelar</button>
+        <button value="confirm" class="btn btn-danger">Sim, limpar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
