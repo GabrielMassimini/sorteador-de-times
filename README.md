@@ -96,7 +96,9 @@ Depois abra o `index.html` no navegador, ou use o Live Server do VS Code.
 - Montar um layout responsivo "mobile first" com Flexbox e Grid
 - Usar Git com commits pequenos e publicar o site no GitHub Pages
 
-Desenvolvi o projeto usando o Claude (IA) como mentor de programação. Discutimos o planejamento, as decisões e o código, e fiz questão de entender cada parte antes de avançar para a próxima etapa.
+## Uso de IA
+
+O código deste projeto foi escrito por mim. Usei o Claude (IA) como mentor de programação: tirei dúvidas, discuti o planejamento e as decisões e pedi revisão do código, sempre entendendo cada parte antes de avançar para a próxima etapa.
 
 ## Próximos passos
 
